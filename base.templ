@@ -1,0 +1,32 @@
+package weather
+
+import (
+	"fmt"
+	owm "github.com/briandowns/openweathermap"
+	"time"
+)
+
+templ base(wthr *owm.CurrentWeatherData) {
+	<section>
+		<section class="flex flex-row gap-2 items-center justify-between w-full border-b border-gray-600 mb-4">
+		<span class="flex-nowrap w-full text-base font-semibold text-gray-600">
+			 { "Conditions for " + wthr.Name + ": " + fmt.Sprintf("%v", wthr.GeoPos.Longitude) + " : " + fmt.Sprintf("%v", wthr.GeoPos.Latitude) }
+		</span>
+			<div class="flex flex-row gap-2 w-1/2 items-center justify-end">
+				<span>Sunrise: { time.Unix(int64(wthr.Sys.Sunrise), 0).Format("3:04a") }</span>
+				<span>Sunset: { time.Unix(int64(wthr.Sys.Sunset), 0).Format("3:04p") }</span>
+			</div>
+		</section>
+		<section class="flex flex-col gap-2 justify-start">
+			<span>Temperature: { fmt.Sprintf("%vº", wthr.Main.Temp) }</span>
+			<span>Feels Like: { fmt.Sprintf("%vº", wthr.Main.FeelsLike) }</span>
+			<span>Humidity: { fmt.Sprintf("%d%%", wthr.Main.Humidity) } { fmt.Sprintf("%s", wthr.Weather[0].Description) }</span>
+			<span>Wind: { fmt.Sprintf("%v at %vº", float64(wthr.Wind.Speed), wthr.Wind.Deg) }</span>
+			<button
+				class="btn btn-neutral max-w-fit"
+				data-toggle-theme="dark,light"
+				data-act-class="ACTIVECLASS"
+			>This is a test</button>
+		</section>
+	</section>
+}
