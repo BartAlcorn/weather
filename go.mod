@@ -1,4 +1,4 @@
-module github.com/bartalcorn/weather
+module github.com/BartAlcorn/weather
 
 go 1.23.3
 
